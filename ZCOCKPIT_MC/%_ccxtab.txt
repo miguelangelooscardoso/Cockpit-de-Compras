@@ -1,0 +1,6 @@
+TYPE-POOL CXTAB .
+
+TYPES:
+       CXTAB_COLUMN type scxtab_column,
+       CXTAB_CONTROL type scxtab_control,
+       CXTAB_TABSTRIP type scxtab_tabstrip.

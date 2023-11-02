@@ -1,0 +1,293 @@
+* *********************************************************************
+* GRAPHICAL FRAMEWORK (GFW)
+*
+* collection of types and constants needed to use GFW
+*
+* gp = graphic proxy, dc = data container, cu = customizing object
+* *********************************************************************
+TYPE-POOL gfw .
+
+TYPES:     gfw_boolean TYPE c.
+CONSTANTS: gfw_true    TYPE gfw_boolean VALUE 'X',
+           gfw_false   TYPE gfw_boolean VALUE space.
+
+* MACRO
+* short gfw call
+DEFINE gfw_write.
+  if cl_gfw=>msg_protocol_active      = gfw_true  or
+     cl_gfw=>msg_protocol_initialized = gfw_false.
+    call method cl_gfw=>write_msg_protocol exporting msgno = &1
+                                           methname = &2 msgtype = &3.
+  endif.
+END-OF-DEFINITION.
+DEFINE gfw_write_time.
+  if cl_gfw=>time_protocol_active     = gfw_true.
+    call method cl_gfw=>write_time_protocol exporting description = &1.
+  endif.
+END-OF-DEFINITION.
+
+
+TYPES:
+*          graphic (picture) in a special format
+*          (result of method if_graphic_proxy~Export)
+*           BEGIN OF gfw_exp_data_row,
+*             data(255),
+*           END OF gfw_exp_data_row,
+           gfw_exp_data_row TYPE w3mime,
+           gfw_exp_data TYPE STANDARD TABLE OF gfw_exp_data_row,
+           gfw_cu_str TYPE text40,
+           gfw_cu_key TYPE text40, "used for Add_Cu_Bundle/if_graphic_pr
+           gfw_evtcode TYPE i,
+*          list of event codes (registration at gfw and cfw)
+           gfw_evtcode_list TYPE SORTED TABLE OF gfw_evtcode
+                            WITH UNIQUE KEY table_line,
+*          event parameter
+           BEGIN OF gfw_evtparam,
+             name TYPE char80,
+             value TYPE text80,
+           END OF gfw_evtparam,
+           gfw_evtparam_list TYPE SORTED TABLE OF gfw_evtparam
+                             WITH UNIQUE KEY name,
+*          GUI event
+           BEGIN OF gfw_event,
+             evtcode TYPE gfw_evtcode,
+             evtparam_list TYPE gfw_evtparam_list,
+           END OF gfw_event,
+
+*          list of behaviors (see if_graphic_proxy~set_behavior)
+*          used for drag&drop
+           BEGIN OF gfw_behavior,
+             key       TYPE gfw_cu_key,
+             behavior  TYPE REF TO cl_dragdrop,
+           END OF gfw_behavior,
+           gfw_behavior_list TYPE SORTED TABLE OF gfw_behavior
+                             WITH UNIQUE KEY KEY,
+
+*          data object lists
+           gfw_objid_list TYPE SORTED TABLE OF gfwobjid
+                          WITH UNIQUE KEY table_line,
+           gfw_grpid_list TYPE TABLE OF gfwgrpid,
+
+           gfw_proxy_obj_data TYPE REF TO cl_gfw_object,
+           gfw_proxy_obj_data_list
+                              TYPE STANDARD TABLE OF gfw_proxy_obj_data
+                              WITH KEY table_line,
+
+*          list of refobjs (used for creating default bundles)
+           gfw_refobj_list TYPE TABLE OF gfwrefobj,
+
+*          (list of) attributes of a dc a gp is interested in
+           BEGIN OF gfw_attrib,
+             name TYPE rollname,
+             is_key TYPE gfw_boolean,
+           END OF gfw_attrib,
+           gfw_attrib_list TYPE SORTED TABLE OF gfw_attrib
+                           WITH UNIQUE KEY name,
+
+           gfw_grid_attrib_list TYPE STANDARD TABLE OF gfw_attrib
+           WITH KEY name,
+
+           gfw_alv_attrib_list TYPE STANDARD TABLE OF gfw_attrib
+           WITH KEY name,
+
+
+
+           gfw_filter_list TYPE SORTED TABLE OF i
+                            WITH UNIQUE KEY table_line,
+
+           BEGIN OF gfw_item_attrib,
+              name TYPE rollname,
+              no TYPE i,
+           END OF gfw_item_attrib,
+           gfw_item_attrib_list TYPE SORTED TABLE OF gfw_item_attrib
+                                WITH UNIQUE KEY no,
+
+*          type to change lists of customizing objects
+           gfw_cu_object TYPE REF TO if_customizing,
+           gfw_cu_object_list TYPE STANDARD TABLE OF gfw_cu_object
+                              WITH KEY table_line,
+           gfw_cu_attr_id      TYPE i,
+           gfw_cu_attr_id_list TYPE SORTED TABLE OF gfw_cu_attr_id
+                               WITH UNIQUE KEY table_line,
+           BEGIN OF gfw_cu_changed_object,
+             cuobj TYPE gfw_cu_object,
+             attr_id_list TYPE gfw_cu_attr_id_list,
+           END OF gfw_cu_changed_object,
+           gfw_cu_changed_object_list
+                        TYPE STANDARD TABLE OF gfw_cu_changed_object
+                        WITH KEY cuobj,
+*          type to change numbered lists of customizing objects (items)
+           BEGIN OF gfw_cu_object_numb,
+               obj TYPE REF TO if_customizing,
+               no TYPE i,
+           END OF gfw_cu_object_numb,
+           gfw_cu_object_numb_list
+                         TYPE STANDARD TABLE OF gfw_cu_object_numb
+                                WITH KEY no,
+
+*          Types to allow synchronization
+*          for an event there is one gp the event is coming from;
+*              this gp is called gp_master
+*          for an event with one gp_master there are several gps the
+*          event has to be send to; these gps are called slaves
+           BEGIN OF gfw_syncjob_slave,
+             gp TYPE REF TO if_graphic_proxy,
+*                              send event to application(=master of gp)
+*                                * no:     do not inform master of gp
+*                                * before: inform master before
+*                                          sending the event to gp
+*                                * after:  inform master after
+*                                          sending the event to gp
+*                              default: after
+             send_evt_to_appl TYPE i,
+          END OF gfw_syncjob_slave,
+          gfw_syncjob_slave_list
+                            TYPE STANDARD TABLE OF gfw_syncjob_slave
+                            WITH KEY gp,
+          BEGIN OF gfw_syncjob,
+*                              event that is sent from gp_master and
+*                              has to be send to all gp_slaves
+*                              if evtcode is initial all events coming
+*                              from gp_master are send to gp_slaves
+            evtcode TYPE gfw_evtcode,
+*                              gp the event is coming from
+            gp_master TYPE REF TO if_graphic_proxy,
+*                              send event to application(of gp_master)
+*                                * no:     do not inform master of gp
+*                                * before: inform master before
+*                                          synchronize any slave
+*                                * after:  inform master after
+*                                          synchronization of all slaves
+*                              default: after
+            send_evt_to_appl TYPE i,      "//-> constants
+*                              table of gps the event has to be send to
+            gp_slave_tab TYPE gfw_syncjob_slave_list,
+          END OF gfw_syncjob,
+          gfw_syncjob_list TYPE STANDARD TABLE OF gfw_syncjob,
+
+*         Customizing types:
+*         Customizing information of graphic proxy
+*         (should be protected member of cl_gfw_gp?)
+*         used by friends of gp
+          BEGIN OF gfw_gp_cu_bundle,
+            port TYPE i,
+            key TYPE char40, "i,
+            bundle TYPE REF TO if_customizing,
+            bundle_type TYPE gfwcubu,  "// KEY is unique for bundle type
+            cuobj_list TYPE gfw_cu_object_numb_list, "//item list
+          END OF gfw_gp_cu_bundle,
+          gfw_gp_cu_bundle_list TYPE STANDARD TABLE OF gfw_gp_cu_bundle,
+*                    UNIQUE key is unfortunately not allowed
+*                    tables ans references are not allowed in table keys
+*                     with key port key bundle.
+
+*        internal attribute table within an attribute-bundle
+*        as soon as objectreferences are available in ddic, this
+*        structure has to be removed
+         gfw_cutyp TYPE c,
+         gfw_cucheck TYPE i,
+         BEGIN OF gfw_cus,
+            attr_id TYPE gfwcuatt,
+            master TYPE gfwcumas,
+            usr TYPE gfwcuusr,
+            type TYPE gfw_cutyp,
+            value_i TYPE gfwcuvai,
+            value_f TYPE gfwcuvaf,
+            value_c TYPE gfwcuvac,
+            value_b TYPE gfw_boolean,
+            value_o TYPE REF TO cl_cu_display_context,
+            check TYPE gfw_cucheck,
+            mini TYPE gfwcumin,
+            maxi TYPE gfwcumax,
+         END OF gfw_cus,
+         gfw_cut TYPE SORTED TABLE OF gfw_cus WITH UNIQUE KEY attr_id,
+
+*        protocol types
+*        message protocol
+         BEGIN OF gfw_msg_protocol_line,
+           msgno TYPE symsgno,
+           msgtype TYPE symsgty,
+           methname TYPE text40,
+         END OF gfw_msg_protocol_line,
+*        time protocol
+         BEGIN OF gfw_time_protocol_line,
+           descr TYPE text80,
+           time TYPE i,
+           last_time TYPE i,
+           duration TYPE i,
+         END OF gfw_time_protocol_line,
+*       List of subproxies
+         BEGIN OF gfw_subproxy,
+           proxy TYPE REF TO object,
+         END OF gfw_subproxy,
+         gfw_subproxy_list TYPE STANDARD TABLE OF gfw_subproxy,
+*       List of product specific subproxies
+         BEGIN OF gfw_prod_subproxy,
+           sp TYPE REF TO if_gp_sub,
+         END OF gfw_prod_subproxy,
+        gfw_prod_subproxy_list TYPE STANDARD TABLE OF gfw_prod_subproxy,
+* Proxy Type
+        gfw_proxtyp TYPE i,
+
+         BEGIN OF gfw_col,
+          field(80) type c,
+         END OF gfw_col ,
+
+         gfw_col_tab TYPE TABLE OF gfw_col ,
+
+        BEGIN OF gfw_mode,
+          proxy TYPE REF TO object,    "cl_gui_gp
+          mode TYPE i,           " fill_mode
+        END OF gfw_mode ,
+        gfw_mode_tab type table of gfw_mode.
+
+
+
+CONSTANTS: gfw_prefix_msgprotocol  TYPE char20 VALUE 'GFW_MSGPROTOCOL_',
+           gfw_prefix_timeprotocol TYPE char10 VALUE 'GFW_TIME_'.
+
+CONSTANTS: gfw_cutyi TYPE gfw_cutyp VALUE 'i',
+           gfw_cutyf TYPE gfw_cutyp VALUE 'f',
+           gfw_cutyc TYPE gfw_cutyp VALUE 'c',
+           gfw_cutyb TYPE gfw_cutyp VALUE 'b',
+           gfw_cutyo TYPE gfw_cutyp VALUE 'o'.
+*Flag for proxy type
+CONSTANTS: gfw_norm TYPE gfw_proxtyp VALUE 1,
+           gfw_main TYPE gfw_proxtyp VALUE 2,
+           gfw_sub  TYPE gfw_proxtyp VALUE 3.
+
+
+* check min and max
+CONSTANTS: gfw_cumin TYPE gfw_cucheck VALUE 1,
+           gfw_cumax TYPE gfw_cucheck VALUE 2,
+           gfw_cuboth TYPE gfw_cucheck VALUE 3,
+           gfw_cunot TYPE gfw_cucheck VALUE 4.
+
+
+CONSTANTS:
+           gfw_ok TYPE symsgno VALUE '000',
+           gfw_err TYPE symsgno VALUE '801',
+
+           gfw_cb_state_invisible TYPE c VALUE '-',
+
+*          function GFW_PRES_SHOW, orientation of data
+           gfw_orient_rows TYPE i VALUE 1,
+           gfw_orient_columns TYPE i VALUE 2,
+*          function GFW_PRES_SHOW, presentation type
+*          subset of values of attribute cl_cu_values=>co_style
+           gfw_prestype_lines           TYPE i VALUE 17,
+           gfw_prestype_area            TYPE i VALUE 38,
+           gfw_prestype_horizontal_bars TYPE i VALUE 8,
+           gfw_prestype_pie_chart       TYPE i VALUE 27,
+           gfw_prestype_vertical_bars   TYPE i VALUE 1,
+           gfw_prestype_time_axis       TYPE i VALUE 100,
+
+*          ... please ask logistic graphic if more is needed
+
+*          type of graphic (used in product management, table TGTY)
+           gfw_type_busg TYPE graftype VALUE 'BUSG',  "presentation
+           gfw_type_hier TYPE graftype VALUE 'NETZ',        "hierarchy
+           gfw_type_net  TYPE graftype VALUE 'NETZ',        "net chart
+           gfw_type_barc TYPE graftype VALUE 'BALK',        "barc chart
+           gfw_type_gisv TYPE graftype VALUE 'GISV',        "gis viewer
+           gfw_type_grid TYPE graftype VALUE 'GRID'.        "grid
