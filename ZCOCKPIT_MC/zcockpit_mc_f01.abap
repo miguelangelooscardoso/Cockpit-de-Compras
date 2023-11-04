@@ -3,7 +3,7 @@
 *&---------------------------------------------------------------------*
 FORM requisition_release.
 *http://sap.technique.free.fr/article.php?sid=74
-*FRGGR È chave prim·ria da tabela t16fc e chave estrangeira da tabela eban.
+*FRGGR √© chave prim√°ria da tabela t16fc e chave estrangeira da tabela eban.
 
 *  SELECT SINGLE frggr FROM eban INTO lv_frggr
 *  WHERE banfn = lv_reqnum
@@ -17,8 +17,8 @@ FORM requisition_release.
 *  AND bnfpo = @lv_it1.
 *
 *  SELECT SINGLE frgc1 FROM t16fs INTO @lv_frgab
-*  WHERE frggr = @lv_frggr " grupo de liberaÁ„o
-*  AND frgsx = @lv_frgst. " estratÈgica de liberaÁ„o
+*  WHERE frggr = @lv_frggr " grupo de libera√ß√£o
+*  AND frgsx = @lv_frgst. " estrat√©gica de libera√ß√£o
 
 *  LOOP AT gt_eban INTO gs_eban.
 *    SELECT a~banfn, a~bnfpo, a~frggr, a~frgst, b~frgsx, b~frgc1
@@ -82,7 +82,7 @@ FORM requisition_release.
 *      rel_code               = '01'
 *      item                   = '00010'
 
-*CURRENT ERROR: Falta indicaÁ„o da responsabilidade de liberaÁ„o!
+*CURRENT ERROR: Falta indica√ß√£o da responsabilidade de libera√ß√£o!
 
         CALL FUNCTION 'BAPI_REQUISITION_RELEASE'
           EXPORTING
@@ -111,7 +111,7 @@ FORM requisition_release.
             CONTINUE.
           ENDLOOP.
         ELSE.
-          MESSAGE 'RequisiÁ„o(ıes) liberada(s) com sucesso.!' TYPE 'S'.
+          MESSAGE 'Requisi√ß√£o(√µes) liberada(s) com sucesso.!' TYPE 'S'.
           CALL FUNCTION 'BAPI_TRANSACTION_COMMIT'.
         ENDIF.
       ENDIF.
@@ -210,7 +210,7 @@ FORM requisition_unrelease.
             CONTINUE.
           ENDLOOP.
         ELSE.
-          MESSAGE 'LiberaÁ„o(s) de RequisiÁ„o(ıes) cancelados com sucesso.!' TYPE 'S'.
+          MESSAGE 'Libera√ß√£o(s) de Requisi√ß√£o(√µes) cancelados com sucesso.!' TYPE 'S'.
           CALL FUNCTION 'BAPI_TRANSACTION_COMMIT'.
         ENDIF.
       ENDIF.
@@ -408,7 +408,7 @@ FORM cancel_order.
         IF sy-subrc <> 0.
 * Implement suitable error handling here
         ELSE.
-          MESSAGE 'LiberaÁ„o de pedido(s) cancelada com sucesso.' TYPE 'S'.
+          MESSAGE 'Libera√ß√£o de pedido(s) cancelada com sucesso.' TYPE 'S'.
           CALL FUNCTION 'BAPI_TRANSACTION_COMMIT'.
         ENDIF.
       ENDIF.
