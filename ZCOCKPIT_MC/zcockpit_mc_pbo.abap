@@ -100,8 +100,8 @@ MODULE status_0012 OUTPUT.
   REFRESH y_values.
   REFRESH x_texts.
 
-  y_values-rowtxt = 'Preço Líquido'.
-  x_texts-coltxt = 'Nº de Acompanhamento'.
+  y_values-rowtxt = 'PreÃ§o LÃ­quido'.
+  x_texts-coltxt = 'NÂº de Acompanhamento'.
 *  APPEND x_texts.
 
   SORT gt_resumo DESCENDING BY netpr.
@@ -145,11 +145,11 @@ MODULE status_0012 OUTPUT.
 
   CALL FUNCTION 'GFW_PRES_SHOW'
     EXPORTING
-      header            = 'Relação entre o número de pedidos e o preço líquido'
+      header            = 'RelaÃ§Ã£o entre o nÃºmero de pedidos e o preÃ§o lÃ­quido'
       container         = 'CONTAINER'
       presentation_type = gfw_prestype_horizontal_bars
-*     x_axis_title      = 'Preço Líquido'
-      y_axis_title      = 'Número de Pedido'
+*     x_axis_title      = 'PreÃ§o LÃ­quido'
+      y_axis_title      = 'NÃºmero de Pedido'
     TABLES
       values            = y_values
       column_texts      = x_texts
