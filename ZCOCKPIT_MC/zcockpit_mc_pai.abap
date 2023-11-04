@@ -69,7 +69,7 @@ MODULE user_command_0003 INPUT.
           AND lv_txt1 IS INITIAL
           AND lv_mat1 IS INITIAL.
 
-        MESSAGE 'Introduza pelo menos um parâmetro!' TYPE 'I'.
+        MESSAGE 'Introduza pelo menos um parÃ¢metro!' TYPE 'I'.
 
       ELSE.
 
@@ -98,10 +98,10 @@ MODULE user_command_0003 INPUT.
           r_mat1-sign = 'I'. "include"
           r_mat1-option = 'EQ'. ""
           r_mat1-low = lv_mat1.
-          APPEND r_mat1. "adiciona à range"
+          APPEND r_mat1. "adiciona Ã  range"
         ENDIF.
 
-        "só metia o high se tivesse um intervalo de valores mas como nós só queremos um valor"
+        "sÃ³ metia o high se tivesse um intervalo de valores mas como nÃ³s sÃ³ queremos um valor"
 
         SELECT banfn, bnfpo, txz01, matnr, bednr, lfdat, menge, meins, frggr, frgst
             FROM eban
@@ -204,10 +204,10 @@ MODULE user_command_0004 INPUT.
           AND lv_it2 IS INITIAL
           AND lv_txt2 IS INITIAL
           AND lv_mat2 IS INITIAL
-          AND lv_forn IS INITIAL " número do fornecedor
+          AND lv_forn IS INITIAL " nÃºmero do fornecedor
           AND lv_nmfrn IS INITIAL. " nome do fornecedor
 
-        MESSAGE 'Introduza pelo menos um parâmetro!' TYPE 'I'.
+        MESSAGE 'Introduza pelo menos um parÃ¢metro!' TYPE 'I'.
 
       ELSE.
 
@@ -253,7 +253,7 @@ MODULE user_command_0004 INPUT.
           APPEND r_nmfrn.
         ENDIF.
 
-        SELECT ebeln, ebelp, txz01, matnr, menge, meins, netpr "frggr  frgst name1 lifnr and bedat não estão na ekpo"
+        SELECT ebeln, ebelp, txz01, matnr, menge, meins, netpr "frggr  frgst name1 lifnr and bedat nÃ£o estÃ£o na ekpo"
             FROM ekpo
             WHERE ebeln IN @r_numped
             AND ebelp IN @r_it2
@@ -288,7 +288,7 @@ MODULE user_command_0004 INPUT.
               LOOP AT lt_lfa1 INTO ls_lfa1.
 
                 IF ls_ekpo-ebeln = ls_ekko-ebeln
-                  AND ls_ekko-lifnr = ls_lfa1-lifnr. " ter a certeza que pedido e nº fornecedor é o mesmo
+                  AND ls_ekko-lifnr = ls_lfa1-lifnr. " ter a certeza que pedido e nÂº fornecedor Ã© o mesmo
 
                   ls_pedidos-ebeln = ls_ekpo-ebeln.
                   ls_pedidos-ebelp = ls_ekpo-ebelp.
@@ -317,7 +317,7 @@ MODULE user_command_0004 INPUT.
           ENDLOOP.
 
           IF lt_pedidos IS INITIAL.
-            MESSAGE 'Não foram encontrados registos!' TYPE 'I'.
+            MESSAGE 'NÃ£o foram encontrados registos!' TYPE 'I'.
           ELSE.
             APPEND LINES OF lt_pedidos TO gt_pedidos.
           ENDIF.
@@ -511,9 +511,9 @@ MODULE user_command_0005 INPUT.
 *        ENDLOOP.
       ENDIF.
 
-*lfa1-stceg  NIF Fornecedor -> lfa1-lifnr  Código do Fornecedor
-*eina-idnlf Número Material do Fornecedor -> eina-matnr Código do material
-*eina-infnr Nº Registo Info
+*lfa1-stceg  NIF Fornecedor -> lfa1-lifnr  CÃ³digo do Fornecedor
+*eina-idnlf NÃºmero Material do Fornecedor -> eina-matnr CÃ³digo do material
+*eina-infnr NÂº Registo Info
 
       SELECT stceg lifnr
           INTO CORRESPONDING FIELDS OF TABLE lt_lfa1
@@ -529,10 +529,10 @@ MODULE user_command_0005 INPUT.
 
 
 *         nif         TYPE lfa1-stceg, " NIF Fornecedor
-*         mat_forn    TYPE eina-idnlf, " Nº material Fornecedor
-*         prc_unit    TYPE eine-netpr, " Preço Unitário
-*         codfrn      TYPE lfa1-lifnr, " Código do Fornecedor
-*         codmat      TYPE eina-matnr, " Código do Material ()
+*         mat_forn    TYPE eina-idnlf, " NÂº material Fornecedor
+*         prc_unit    TYPE eine-netpr, " PreÃ§o UnitÃ¡rio
+*         codfrn      TYPE lfa1-lifnr, " CÃ³digo do Fornecedor
+*         codmat      TYPE eina-matnr, " CÃ³digo do Material ()
 
       LOOP AT lt_preco INTO ls_preco.
 
@@ -548,7 +548,7 @@ MODULE user_command_0005 INPUT.
 
         LOOP AT lt_eina INTO ls_eina.
 
-*          IF ls_preco-mat_forn = ls_eina-idnlf. "idnlf não existe na tabela
+*          IF ls_preco-mat_forn = ls_eina-idnlf. "idnlf nÃ£o existe na tabela
           IF ls_preco-info = ls_eina-infnr.
 
             ls_preco-codmat = ls_eina-matnr.
@@ -584,9 +584,9 @@ MODULE user_command_0005 INPUT.
       DATA: lv_curr_price TYPE eine-netpr,
             lv_new_price  TYPE string.
 
-*Selecionar Nº do Registo e Preço Unitário
-* lt_preco contém o valor do .xlsx
-* gt_preco contém o valor da tabela transparente eine
+*Selecionar NÂº do Registo e PreÃ§o UnitÃ¡rio
+* lt_preco contÃ©m o valor do .xlsx
+* gt_preco contÃ©m o valor da tabela transparente eine
 
       DATA: lv_info     TYPE eine-infnr,
             lv_prc_unit TYPE eine-netpr.
@@ -651,14 +651,14 @@ MODULE user_command_0005 INPUT.
 
 *        PERFORM open_group.
 
-**         org_compras TYPE eine-ekorg, " Organização de Compras
+**         org_compras TYPE eine-ekorg, " OrganizaÃ§Ã£o de Compras
 **         centro      TYPE eine-werks, " Centro
 **         nif         TYPE lfa1-stceg, " NIF Fornecedor
-***         mat_forn    TYPE eina-idnlf, " Nº material Fornecedor
-**         info        TYPE eina-infnr, " Nº Registo Info
-**         prc_unit    TYPE eine-netpr, " Preço Unitário
-**         codfrn      TYPE lfa1-lifnr, " Código do Fornecedor
-**         codmat      TYPE eina-matnr, " Código do Material
+***         mat_forn    TYPE eina-idnlf, " NÂº material Fornecedor
+**         info        TYPE eina-infnr, " NÂº Registo Info
+**         prc_unit    TYPE eine-netpr, " PreÃ§o UnitÃ¡rio
+**         codfrn      TYPE lfa1-lifnr, " CÃ³digo do Fornecedor
+**         codmat      TYPE eina-matnr, " CÃ³digo do Material
 *
 *        DATA: lv_curr_price TYPE eine-netpr,
 *              lv_new_price  TYPE string.
@@ -784,7 +784,7 @@ MODULE user_command_0006 INPUT.
           AND lv_mat4 IS INITIAL
           AND lv_nacomp4 IS INITIAL.
 
-        MESSAGE 'Introduza pelo menos um parâmetro!' TYPE 'I'.
+        MESSAGE 'Introduza pelo menos um parÃ¢metro!' TYPE 'I'.
 
       ELSE.
 
@@ -813,11 +813,11 @@ MODULE user_command_0006 INPUT.
           r_mat4-sign = 'I'. "include"
           r_mat4-option = 'EQ'. ""
           r_mat4-low = lv_mat4.
-          APPEND r_mat4. "adiciona à range"
+          APPEND r_mat4. "adiciona Ã  range"
         ENDIF.
 
 
-        SELECT banfn bnfpo txz01 matnr bednr lfdat menge meins frggr frgst ebeln banpr statu " frgsx não existe na EABN
+        SELECT banfn bnfpo txz01 matnr bednr lfdat menge meins frggr frgst ebeln banpr statu " frgsx nÃ£o existe na EABN
             FROM eban
             INTO CORRESPONDING FIELDS OF TABLE lt_processo
             WHERE banfn IN r_reqnum4
@@ -826,7 +826,7 @@ MODULE user_command_0006 INPUT.
             AND matnr IN r_mat4
             AND bednr IN r_nacomp4.
 
-        """ faltam acrescentar alguns parâmetros ao select
+        """ faltam acrescentar alguns parÃ¢metros ao select
 
 *        DATA: ls_ekbe TYPE ekbe.
 
@@ -970,7 +970,7 @@ MODULE user_command_0007 INPUT.
           AND lv_nmfrn5 IS INITIAL
           AND lv_nacomp5 IS INITIAL.
 
-        MESSAGE 'Introduza pelo menos um parâmetro!' TYPE 'I'.
+        MESSAGE 'Introduza pelo menos um parÃ¢metro!' TYPE 'I'.
 
       ELSE.
 
@@ -1023,7 +1023,7 @@ MODULE user_command_0007 INPUT.
           APPEND r_nacomp5.
         ENDIF.
 
-        SELECT ebeln ebelp txz01 matnr menge meins netpr bednr "lifnr, bedat, name1, frggr, frgsx não estão na ekpo
+        SELECT ebeln ebelp txz01 matnr menge meins netpr bednr "lifnr, bedat, name1, frggr, frgsx nÃ£o estÃ£o na ekpo
             FROM ekpo
             INTO CORRESPONDING FIELDS OF TABLE lt_ekpo
             WHERE ebeln IN r_numped5
@@ -1087,7 +1087,7 @@ MODULE user_command_0007 INPUT.
         ENDLOOP.
 
         IF lt_resumo IS INITIAL.
-          MESSAGE 'Não foram encontrados registos!' TYPE 'I'.
+          MESSAGE 'NÃ£o foram encontrados registos!' TYPE 'I'.
         ELSE.
           APPEND LINES OF lt_resumo TO gt_resumo.
         ENDIF.
