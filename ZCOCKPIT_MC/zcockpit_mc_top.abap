@@ -4,13 +4,13 @@
 
 TABLES: eban, ekpo, ekko, t16fc.
 
-*** Minhas Requisições (1.1) ***
-DATA: lv_reqnum TYPE eban-banfn, "Variável local screen painter"
+*** Minhas RequisiÃ§Ãµes (1.1) ***
+DATA: lv_reqnum TYPE eban-banfn, "VariÃ¡vel local screen painter"
       lv_it1    TYPE eban-bnfpo,
       lv_txt1   TYPE eban-txz01,
       lv_mat1   TYPE eban-matnr.
 
-RANGES: r_reqnum FOR eban-banfn, "Variável local screen painter"
+RANGES: r_reqnum FOR eban-banfn, "VariÃ¡vel local screen painter"
         r_it1    FOR eban-bnfpo,
         r_txt1   FOR eban-txz01,
         r_mat1   FOR eban-matnr.
@@ -20,14 +20,14 @@ DATA: lv_numped TYPE ekpo-ebeln,
       lv_it2    TYPE ekpo-ebelp,
       lv_txt2   TYPE ekpo-txz01,
       lv_mat2   TYPE ekpo-matnr,
-      lv_forn   TYPE ekko-lifnr, " número conta do fornecedor EKPO-LIFNR não existe!!!
+      lv_forn   TYPE ekko-lifnr, " nÃºmero conta do fornecedor EKPO-LIFNR nÃ£o existe!!!
       lv_nmfrn  TYPE lfa1-name1.
 
 RANGES: r_numped FOR ekpo-ebeln,
         r_it2    FOR ekpo-ebelp,
         r_txt2   FOR ekpo-txz01,
         r_mat2   FOR ekpo-matnr,
-        r_forn   FOR ekko-lifnr, " número conta do fornecedor EKPO-LIFNR não existe!!!
+        r_forn   FOR ekko-lifnr, " nÃºmero conta do fornecedor EKPO-LIFNR nÃ£o existe!!!
         r_nmfrn  FOR lfa1-name1.
 
 DATA: gt_ekpo TYPE TABLE OF ekpo,
@@ -71,7 +71,7 @@ TYPES:
     ebelp  TYPE ekpo-ebelp,
     txz01  TYPE ekpo-txz01,
     matnr  TYPE ekpo-matnr,
-    lifnr  TYPE ekko-lifnr, " número conta do fornecedor EKPO-LIFNR não existe!!!
+    lifnr  TYPE ekko-lifnr, " nÃºmero conta do fornecedor EKPO-LIFNR nÃ£o existe!!!
     name1  TYPE lfa1-name1,
     bedat  TYPE ekko-bedat,
     menge  TYPE ekpo-menge,
@@ -82,7 +82,7 @@ TYPES:
     select TYPE xfeld,
   END OF ty_pedidos.
 
-* Verificar se necessário
+* Verificar se necessÃ¡rio
 
 DATA: gt_pedidos TYPE TABLE OF ty_pedidos,
       lt_pedidos TYPE TABLE OF ty_pedidos,
@@ -96,16 +96,16 @@ DATA: lt_ekpo TYPE TABLE OF ekpo,
       lt_lfa1 TYPE TABLE OF lfa1,
       ls_lfa1 TYPE lfa1.
 
-*** Preços (1.3) ***
+*** PreÃ§os (1.3) ***
 TYPES: BEGIN OF ty_preco,
-         org_compras TYPE eine-ekorg, " Organização de Compras
+         org_compras TYPE eine-ekorg, " OrganizaÃ§Ã£o de Compras
          centro      TYPE eine-werks, " Centro
          nif         TYPE lfa1-stceg, " NIF Fornecedor
-*         mat_forn    TYPE eina-idnlf, " Nº material Fornecedor
-         info        TYPE eina-infnr, " Nº Registo Info eina-infnr
-         prc_unit    TYPE eine-netpr, " Preço Unitário
-         codfrn      TYPE lfa1-lifnr, " Código do Fornecedor
-         codmat      TYPE eina-matnr, " Código do Material
+*         mat_forn    TYPE eina-idnlf, " NÂº material Fornecedor
+         info        TYPE eina-infnr, " NÂº Registo Info eina-infnr
+         prc_unit    TYPE eine-netpr, " PreÃ§o UnitÃ¡rio
+         codfrn      TYPE lfa1-lifnr, " CÃ³digo do Fornecedor
+         codmat      TYPE eina-matnr, " CÃ³digo do Material
        END OF ty_preco.
 
 DATA: loc_dir TYPE rlgrap-filename.
@@ -121,7 +121,7 @@ DATA: gt_preco TYPE TABLE OF ty_preco,
 DATA: lt_eina TYPE TABLE OF eina,
       ls_eina TYPE eina.
 
-*** Ver processo por requisição (2.1) ***
+*** Ver processo por requisiÃ§Ã£o (2.1) ***
 DATA: lv_reqnum4 TYPE eban-banfn,
       lv_it4     TYPE eban-bnfpo,
       lv_txt4    TYPE eban-txz01,
@@ -155,22 +155,22 @@ DATA: gt_processo TYPE TABLE OF ty_processo,
       gs_processo TYPE ty_processo,
       ls_processo TYPE ty_processo.
 
-*** Ver resumo por número de acompanhamento (2.2) ***
-DATA: lv_numped5 TYPE ekpo-ebeln, " nº pedido
+*** Ver resumo por nÃºmero de acompanhamento (2.2) ***
+DATA: lv_numped5 TYPE ekpo-ebeln, " nÂº pedido
       lv_it5     TYPE ekpo-ebelp, " item
       lv_txt5    TYPE ekpo-txz01, " texto (material)
       lv_mat5    TYPE ekpo-matnr, " material
       lv_forn5   TYPE ekko-lifnr, " fornecedor
-      lv_nmfrn5  TYPE lfa1-name1, " nome conta do fornecedor EKPO-LIFNR não existe!!!
-      lv_nacomp5 TYPE ekpo-bednr. " número acompanhamento
+      lv_nmfrn5  TYPE lfa1-name1, " nome conta do fornecedor EKPO-LIFNR nÃ£o existe!!!
+      lv_nacomp5 TYPE ekpo-bednr. " nÃºmero acompanhamento
 
-RANGES: r_numped5 FOR ekpo-ebeln, " nº pedido
+RANGES: r_numped5 FOR ekpo-ebeln, " nÂº pedido
         r_it5     FOR ekpo-ebelp, " item
      	  r_txt5    FOR ekpo-txz01, " texto (material)
         r_mat5    FOR ekpo-matnr, " material
         r_forn5   FOR ekko-lifnr, " fornecedor
-        r_nmfrn5  FOR lfa1-name1, " número conta do fornecedor EKPO-LIFNR não existe!!!
-        r_nacomp5 FOR ekpo-bednr. " número acompanhamento
+        r_nmfrn5  FOR lfa1-name1, " nÃºmero conta do fornecedor EKPO-LIFNR nÃ£o existe!!!
+        r_nacomp5 FOR ekpo-bednr. " nÃºmero acompanhamento
 
 TYPES:
   BEGIN OF ty_resumo,
@@ -178,7 +178,7 @@ TYPES:
     ebelp TYPE ekpo-ebelp,
     txz01 TYPE ekpo-txz01,
     matnr TYPE ekpo-matnr,
-    lifnr TYPE ekko-lifnr, " número conta do fornecedor EKPO-LIFNR não existe!!!
+    lifnr TYPE ekko-lifnr, " nÃºmero conta do fornecedor EKPO-LIFNR nÃ£o existe!!!
     name1 TYPE lfa1-name1,
     bednr TYPE ekpo-bednr,
     netpr TYPE ekpo-netpr,
@@ -218,14 +218,14 @@ TYPES:
   BEGIN OF ty_po,
     ebeln TYPE ekko-ebeln,
     frggr TYPE ekko-frggr,
-    frgsx TYPE ekko-frgsx, " estratégia de liberação
+    frgsx TYPE ekko-frgsx, " estratÃ©gia de liberaÃ§Ã£o
     frgc1 TYPE t16fs-frgc1,
   END OF ty_po.
 
 DATA: gt_po TYPE TABLE OF ty_po,
       gs_po TYPE ty_po.
 
-** Usando vários codigos de função. **
+** Usando vÃ¡rios codigos de funÃ§Ã£o. **
 
 DATA:
   frgc  TYPE string,
@@ -242,7 +242,7 @@ DATA:
 
 DATA:
 *  lv_frggr TYPE frggr,
-  lv_frgsx TYPE frgsx. " estratégia de liberação
+  lv_frgsx TYPE frgsx. " estratÃ©gia de liberaÃ§Ã£o
 
 
 *** Call Transaction ***
