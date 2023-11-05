@@ -1,6 +1,6 @@
 # Cockpit-de-Compras
 
-Layout:
+## Layout:
 
 A - Caixa esquerda superior – Menu de navegação nas diferentes funções disponíveis ao
 utilizador
@@ -15,30 +15,30 @@ C - Caixa direita do ecrã – detalhe da função escolhida
 
 ### Minhas Requisições
 
-Seleção de requisições a liberar (ou cancelar liberação).
+#### Seleção de requisições a liberar (ou cancelar liberação).
 ![1.1](https://github.com/miguelangelooscardoso/Cockpit-de-Compras/blob/main/img/1.1.png)
 
-Exibição de detalhes relativos a cada item e requisição (data de remessa, quantidade...):
+#### Exibição de detalhes relativos a cada item e requisição (data de remessa, quantidade...):
 ![1.1_detalhes](https://github.com/miguelangelooscardoso/Cockpit-de-Compras/blob/main/img/1.1_detalhes.png)
 
 ### Meus Pedidos de Compra
 
-Seleção de pedidos a liberar (ou cancelar liberação).
+#### Seleção de pedidos a liberar (ou cancelar liberação).
 ![1.2](https://github.com/miguelangelooscardoso/Cockpit-de-Compras/blob/main/img/1.2.png)
 
-Pré-visualização e impressão do pedido de compra a enviar ao fornecedor:
+#### Pré-visualização e impressão do pedido de compra a enviar ao fornecedor:
 ![1.2_smartform](https://github.com/miguelangelooscardoso/Cockpit-de-Compras/blob/main/img/1.2_smartform.png)
 
 ### Preços
 
-Carregamento de preços por Batch Input:
+#### Carregamento de preços por Batch Input:
 ![1.3](https://github.com/miguelangelooscardoso/Cockpit-de-Compras/blob/main/img/1.3.png)
 
 ## Processo
 
 ### Ver Processo Por Requisição
 
-Status por item de cada requisição:
+#### Status por item de cada requisição:
 ![2.1](https://github.com/miguelangelooscardoso/Cockpit-de-Compras/blob/main/img/2.1.png)
 
 ### Ver Resumo Por Número de Pedido
