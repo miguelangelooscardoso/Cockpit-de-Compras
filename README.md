@@ -9,9 +9,7 @@ B - Caixa esquerda inferior – Lista de entradas para funções de consulta do 
 
 C - Caixa direita do ecrã – detalhe da função escolhida
 
-https://github.com/miguelangelooscardoso/Cockpit-de-Compras/tree/main/img
-
-![Layout](https://github.com/miguelangelooscardoso/Cockpit-de-Compras/tree/main/img/Layout.png)
+![Layout](https://github.com/miguelangelooscardoso/Cockpit-de-Compras/blob/main/img/Layout.png)
 
 ## Tarefas de Compras
 
@@ -21,7 +19,7 @@ Seleção de requisições a liberar (ou cancelar liberação).
 ![1.1](https://github.com/miguelangelooscardoso/Cockpit-de-Compras/blob/main/img/1.1.png)
 
 Exibição de detalhes relativos a cada item e requisição (data de remessa, quantidade...):
-![1.1_detalhes](https://github.com/miguelangelooscardoso/Cockpit-de-Compras/nlob/main/img/1.1_detalhes.png)
+![1.1_detalhes](https://github.com/miguelangelooscardoso/Cockpit-de-Compras/blob/main/img/1.1_detalhes.png)
 
 ### Meus Pedidos de Compra
 
