@@ -43,6 +43,6 @@ C - Caixa direita do ecrã – detalhe da função escolhida
 
 ### Ver Resumo Por Número de Pedido
 
-Relação entre o número de pedido e o preço líquido (ALV de barras horizontais):
+#### Relação entre o número de pedido e o preço líquido (ALV de barras horizontais):
 ![2.2](https://github.com/miguelangelooscardoso/Cockpit-de-Compras/blob/main/img/2.2.png)
 
