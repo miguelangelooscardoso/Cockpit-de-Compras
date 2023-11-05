@@ -19,7 +19,7 @@ https://github.com/miguelangelooscardoso/Cockpit-de-Compras/tree/main/img
 
 Seleção de requisições a liberar (ou cancelar liberação).
 ![1.1](https://github.com/miguelangelooscardoso/Cockpit-de-Compras/img/1.1.png)
-
+![Alt text](https://github.com/miguelangelooscardoso/Cockpit-de-Compras/blob/main/img/1.1.png)
 Exibição de detalhes relativos a cada item e requisição (data de remessa, quantidade...):
 ![1.1_detalhes](https://github.com/miguelangelooscardoso/Cockpit-de-Compras/tree/main/img/1.1_detalhes.png)
 
